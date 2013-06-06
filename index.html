@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>a console</title>
+    <style type="text/css">
+      #cons {
+        width: 40em;
+        height: 29em;
+      }
+      #inp {
+        width: 40em;
+        border-top-width: 1px;
+        border-left-width: 0px;
+        border-right-width: 0px;
+      }
+      #sub {
+        width: 1em;
+        visibility: hidden;
+      }
+      .black {
+        background-color: black;
+        color: white;
+        font-family: monospace;
+        font-size: large;
+        overflow: auto;
+        word-wrap: normal;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="cons" class="black">
+      <br />
+    </div>
+      <div id="input">
+        <form onsubmit="return false;">
+        <input id="inp" autofocus class="black" autocomplete="off"></input>
+        <br />
+        <input id="sub" type="submit" value=">" class="black"></input>
+        </form>
+      </div>
+    <script src="consolejs.js"></script>
+  </body>
+</html>
