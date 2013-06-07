@@ -20,7 +20,7 @@
         color: lightgreen;
       }
       .usertxt {
-        color: lightgrey;
+        color: silver;
       }
     </style>
   </head>
@@ -41,15 +41,21 @@
     </ul>
     </p>
     <div id="cons">
+      Add some text to show up in the window to your div.
+      We will read it and push it to the window.
     </div>
 
     <script src="consolejs.js"></script>
     <script>
-      var mycb = function(inp) {
+      "use strict";
+      var mycb = function (inp) {
         return "I'm a callback " + inp;
       };
-      document.addEventListener('DOMContentLoaded', function() {
-        var mycons = new Consolejs(document.getElementById('cons'), mycb);
+      /*global Consolejs */
+      document.addEventListener('DOMContentLoaded', function () {
+        var mycons;
+        mycons = new Consolejs(document.getElementById('cons'), mycb);
+        mycb('startup!!!');
       });
     </script>
   </body>

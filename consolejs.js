@@ -2,12 +2,45 @@
 
 var Consolejs = function (win, cb) {
   var inp, inptxt, outwin, sub, form, winstyle, button, respond;
-  winstyle = getComputedStyle(win);
+  button = function (cb) {
+// get value and escape some html
+    var inptc, pos;
+    inptc = inp.value.replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&apos;');
+      //window.alert(inptc);
+    outwin.insertAdjacentHTML('beforeend',
+        "<span class=\"usertxt\">> "
+        + inptc
+        + "<br /></span>");
+    pos = outwin.scrollTop;
+    outwin.scrollTop = pos + outwin.clientHeight;
+    inp.value = '';
+    respond(inptc, cb);
+  };
+  respond = function (inp, cb) {
+    var pos, resp;
+    if (typeof cb !== 'undefined') {
+      resp = cb(inp);
+    } else {
+      resp = inp;
+    }
+    outwin.insertAdjacentHTML('beforeend',
+        "<span class=\"bottxt\">"
+        + resp
+        + "<br /></span>");
+    pos = outwin.scrollTop;
+    outwin.scrollTop = pos + outwin.clientHeight;
+  };
+
+  winstyle = window.getComputedStyle(win);
   outwin = document.createElement("div");
   outwin.setAttribute("id", "outwin");
   outwin.setAttribute("class", 'consolejs');
   outwin.style.width = winstyle.getPropertyValue("width");
-  outwin.style.height = winstyle.getPropertyValue("height");;
+  outwin.style.height = winstyle.getPropertyValue("height");
   inp = document.createElement("input");
   inp.setAttribute("id", 'inp');
   inp.setAttribute("autofocus", 'true');
@@ -21,44 +54,11 @@ var Consolejs = function (win, cb) {
   form.setAttribute("onsubmit", 'return false;');
   form.appendChild(inp);
   //kill the existing content and replace with our own
+  respond(win.innerHTML);
   win.innerHTML = '';
   win.appendChild(outwin);
   win.appendChild(form);
   form.addEventListener('submit', function () { button(cb); }, false);
-
-  var button = function (cb) {
-// get value and escape some html
-      var inptc, pos;
-      inptc = inp.value.replace(/&/g, '&amp;')
-                  .replace(/</g, '&lt;')
-                  .replace(/>/g, '&gt;')
-                  .replace(/"/g, '&quot;')
-                  .replace(/'/g, '&apos;');
-      //window.alert(inptc);
-      outwin.insertAdjacentHTML('beforeend',
-          "<span class=\"usertxt\">> "
-          + inptc
-          + "<br /></span>");
-      pos = outwin.scrollTop;
-      outwin.scrollTop = pos + outwin.clientHeight;
-      inp.value = '';
-      //self.respond(inptc, cb);
-      respond(inptc, cb);
-    };
-    var respond = function (inp, cb) {
-      var pos, resp;
-      if (typeof cb !== 'undefined') {
-        resp = cb(inp);
-      } else {
-        resp = inp;
-      }
-      //    + win.lastChild.textContent
-      outwin.insertAdjacentHTML('beforeend',
-          "<span class=\"bottxt\">"
-          + resp
-          + "<br /></span>");
-      pos = outwin.scrollTop;
-      outwin.scrollTop = pos + outwin.clientHeight;
-    };
+  return this;
 };
 
