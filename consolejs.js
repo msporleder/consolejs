@@ -1,41 +1,64 @@
 "use strict";
-document.addEventListener('DOMContentLoaded', function() {
+
+var Consolejs = function (win, winstyle) {
+  var inp, inptxt, button, respond, divwin, sub;
+  divwin = '<div id="input">'
+        + '<form onsubmit="return false;">'
+        + '<input id="inp" autofocus class="black" autocomplete="off"></input>'
+        + '<br />'
+        + '<input id="sub" type="submit" value=">" class="black"></input>'
+        + '</form></div>';
+  win.innerHTML = divwin;
+  inp = document.getElementById("inp");
+  inptxt = document.getElementById("tmp");
+  sub = document.getElementById("sub");
+  sub.addEventListener('click', function () { cons.button(cons, rep); }, false);
+  return {
+    button: function (self, cb) {
+// get value and escape some html
+      var inptc, pos;
+      inptc = inp.value.replace(/&/g, '&amp;')
+                  .replace(/</g, '&lt;')
+                  .replace(/>/g, '&gt;')
+                  .replace(/"/g, '&quot;')
+                  .replace(/'/g, '&apos;');
+      // window.alert(inptc);
+      win.insertAdjacentHTML('beforeend',
+          "<span class=\"usertxt\">> "
+          + inptc
+          + "<br /></span>");
+      pos = win.scrollTop;
+      win.scrollTop = pos + win.clientHeight;
+      inp.value = '';
+      self.respond(inptc, cb);
+    },
+    respond: function (inp, cb) {
+      var pos, resp;
+      if (typeof cb !== 'undefined') {
+        resp = cb(inp);
+      } else {
+        resp = inp;
+      }
+      //    + win.lastChild.textContent
+      win.insertAdjacentHTML('beforeend',
+          "<span class=\"bottxt\">"
+          + resp
+          + "<br /></span>");
+      pos = win.scrollTop;
+      win.scrollTop = pos + win.clientHeight;
+    }
+  };
+};
+
+var rep = function(inp) {
+  return "foo: " + inp;
+}
+
+document.addEventListener('DOMContentLoaded', function () {
 // scroll to bottom of div
 // init stuff
-  var win = document.getElementById("cons");
-  var pos = win.scrollTop;
-  var sub = document.getElementById("sub");
-  sub.addEventListener('click', button, false);
+  var sub, cons, win;
+  // sub = document.getElementById("sub");
+  win  = document.getElementById("cons");
+  cons = new Consolejs(win);
 });
-
-function button() {
-  var win = document.getElementById("cons");
-  var inp = document.getElementById("inp");
-  var inptxt = document.getElementById("tmp");
-// get value and escape some html
-  var inptc = inp.value.replace(/&/g, '&amp;')
-              .replace(/</g, '&lt;')
-              .replace(/>/g, '&gt;')
-              .replace(/"/g, '&quot;')
-              .replace(/'/g, '&apos;');
-  // window.alert(inptc);
-  win.insertAdjacentHTML('beforeend',
-      "<span class=\"usertxt\">> "
-      + inptc
-      + "<br /></span>");
-  var pos = win.scrollTop;
-  win.scrollTop = pos + win.clientHeight;
-  inp.value = '';
-  respond(inptc);
-}
-
-function respond(inp) {
-  var win = document.getElementById("cons");
-  //    + win.lastChild.textContent
-  win.insertAdjacentHTML('beforeend',
-      "<span class=\"bottxt\">got: "
-      + inp
-      + "<br /></span>");
-  var pos = win.scrollTop;
-  win.scrollTop = pos + win.clientHeight;
-}

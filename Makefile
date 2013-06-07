@@ -1,2 +1,2 @@
 all: consolejs.js
-	jslint consolejs.js
+	jslint --browser --indent=2 --color consolejs.js
