@@ -8,17 +8,7 @@
         width: 40em;
         height: 29em;
       }
-      #inp {
-        width: 40em;
-        border-top-width: 1px;
-        border-left-width: 0px;
-        border-right-width: 0px;
-      }
-      #sub {
-        width: 1em;
-        visibility: hidden;
-      }
-      .black {
+      .consolejs {
         background-color: black;
         color: white;
         font-family: monospace;
@@ -29,10 +19,17 @@
     </style>
   </head>
   <body>
-    <div id="cons" class="black">
-      hey
-      <br />
+    <div id="cons">
     </div>
+
     <script src="consolejs.js"></script>
+    <script>
+      var mycb = function(inp) {
+        return "foo foo foo " + inp;
+      };
+      document.addEventListener('DOMContentLoaded', function() {
+        var mycons = new Consolejs(document.getElementById('cons'), mycb);
+      });
+    </script>
   </body>
 </html>
