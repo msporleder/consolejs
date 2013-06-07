@@ -1,7 +1,7 @@
 "use strict";
 
-var Consolejs = function (win, cb, winstyle) {
-  var inp, inptxt, outwin, sub, form, button, respond;
+var Consolejs = function (win, cb) {
+  var inp, inptxt, outwin, sub, form, winstyle, button, respond;
   winstyle = getComputedStyle(win);
   outwin = document.createElement("div");
   outwin.setAttribute("id", "outwin");
