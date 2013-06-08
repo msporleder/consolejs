@@ -1,8 +1,8 @@
 "use strict";
 
 var Consolejs = function (win, cb) {
-  var inp, inptxt, outwin, sub, form, winstyle, button, respond;
-  button = function (cb) {
+  var inp, inptxt, outwin, sub, form, winstyle, send, respond;
+  send = function (cb) { //private
 // get value and escape some html
     var inptc, pos;
     inptc = inp.value.replace(/&/g, '&amp;')
@@ -20,7 +20,8 @@ var Consolejs = function (win, cb) {
     inp.value = '';
     respond(inptc, cb);
   };
-  respond = function (inp, cb) {
+
+  respond = function (inp, cb) { //private
     var pos, resp;
     if (typeof cb !== 'undefined') {
       resp = cb(inp);
@@ -35,7 +36,7 @@ var Consolejs = function (win, cb) {
     outwin.scrollTop = pos + outwin.clientHeight;
   };
 
-  this.backdoor = function (inp) {
+  this.backdoor = function (inp) { //public
     respond(inp);
   };
 
@@ -62,6 +63,6 @@ var Consolejs = function (win, cb) {
   win.innerHTML = '';
   win.appendChild(outwin);
   win.appendChild(form);
-  form.addEventListener('submit', function () { button(cb); }, false);
+  form.addEventListener('submit', function () { send(cb); }, false);
   return this;
 };
