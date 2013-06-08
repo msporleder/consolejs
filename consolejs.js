@@ -2,10 +2,10 @@
 
 var Consolejs = function (win, cb) {
   var inp, inptxt, outwin, sub, form, winstyle, send, respond;
-  send = function (cb) { //private
+  send = function (inpt, cb) { //private
 // get value and escape some html
     var inptc, pos;
-    inptc = inp.value.replace(/&/g, '&amp;')
+    inptc = inpt.replace(/&/g, '&amp;')
                 .replace(/</g, '&lt;')
                 .replace(/>/g, '&gt;')
                 .replace(/"/g, '&quot;')
@@ -36,8 +36,12 @@ var Consolejs = function (win, cb) {
     outwin.scrollTop = pos + outwin.clientHeight;
   };
 
-  this.backdoor = function (inp) { //public
-    respond(inp);
+  this.backdoor = function (way, inp, cb) { //public
+    if (way === 'send') {
+      send(inp, cb);
+    } else if (way === 'respond') {
+      respond(inp, cb);
+    }
   };
   winstyle = window.getComputedStyle(win);
   outwin = document.createElement("div");
@@ -62,6 +66,6 @@ var Consolejs = function (win, cb) {
   win.innerHTML = '';
   win.appendChild(outwin);
   win.appendChild(form);
-  form.addEventListener('submit', function () { send(cb); }, false);
+  form.addEventListener('submit', function () { send(inp.value, cb); }, false);
   return this;
 };

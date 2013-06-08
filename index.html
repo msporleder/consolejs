@@ -56,7 +56,8 @@
       document.addEventListener('DOMContentLoaded', function () {
         /*global Consolejs */
         mycons = new Consolejs(document.getElementById('cons'), mycb);
-        mycons.backdoor('hi');
+        mycons.backdoor('send', 'hi', mycb);
+        mycons.backdoor('respond', 'hello, back');
       });
     </script>
   </body>
