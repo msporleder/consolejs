@@ -39,7 +39,6 @@ var Consolejs = function (win, cb) {
   this.backdoor = function (inp) { //public
     respond(inp);
   };
-
   winstyle = window.getComputedStyle(win);
   outwin = document.createElement("div");
   outwin.setAttribute("id", "outwin");
