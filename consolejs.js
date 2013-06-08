@@ -49,6 +49,8 @@ var Consolejs = function (win, cb) {
   outwin.setAttribute("class", 'consolejs');
   outwin.style.width = winstyle.getPropertyValue("width");
   outwin.style.height = winstyle.getPropertyValue("height");
+  outwin.style.overflow = 'auto';
+  outwin.style.wordWrap = 'normal';
   inp = document.createElement("input");
   inp.setAttribute("id", 'inp');
   inp.setAttribute("autofocus", 'true');
@@ -58,6 +60,8 @@ var Consolejs = function (win, cb) {
   inp.style.borderLeftWidth = '0px';
   inp.style.borderRightWidth = '0px';
   inp.style.width = outwin.style.width;
+  inp.style.overflow = 'auto';
+  inp.style.wordWrap = 'normal';
   form = document.createElement('form');
   form.setAttribute("onsubmit", 'return false;');
   form.appendChild(inp);
