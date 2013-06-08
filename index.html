@@ -38,6 +38,7 @@
         </ul>
       <li>make an interesting callback function to respond to input</li>
       <li>pass your div to new Consolejs(document.getElementById('mydiv'), callback);</li>
+      <li>Consolejs.backdoor allows you to post messages into the window</li>
     </ul>
     </p>
     <div id="cons">
@@ -51,11 +52,11 @@
       var mycb = function (inp) {
         return "I'm a callback " + inp;
       };
-      /*global Consolejs */
+      var mycons;
       document.addEventListener('DOMContentLoaded', function () {
-        var mycons;
+        /*global Consolejs */
         mycons = new Consolejs(document.getElementById('cons'), mycb);
-        mycb('startup!!!');
+        mycons.backdoor('hi');
       });
     </script>
   </body>

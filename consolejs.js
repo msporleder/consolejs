@@ -35,6 +35,10 @@ var Consolejs = function (win, cb) {
     outwin.scrollTop = pos + outwin.clientHeight;
   };
 
+  this.backdoor = function (inp) {
+    respond(inp);
+  };
+
   winstyle = window.getComputedStyle(win);
   outwin = document.createElement("div");
   outwin.setAttribute("id", "outwin");
@@ -61,4 +65,3 @@ var Consolejs = function (win, cb) {
   form.addEventListener('submit', function () { button(cb); }, false);
   return this;
 };
-
